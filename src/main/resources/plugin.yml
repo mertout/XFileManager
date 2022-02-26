@@ -1,0 +1,5 @@
+name: FileManager
+version: '${project.version}'
+main: filemanager.filemanager.FileManager
+api-version: 1.16
+authors: [ mert_out ]
