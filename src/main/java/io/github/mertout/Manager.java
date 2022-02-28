@@ -44,7 +44,7 @@ public class Manager {
     }
     public YamlConfiguration nameToFileCFG(String files) {
         file = new File(Bridge.getInstance().getDataFolder(), files + ".yml");
-        if (!file.exist()) return null;
+        if (!file.exists()) return null;
         filecfg = YamlConfiguration.loadConfiguration(file);
         return filecfg;
     }
