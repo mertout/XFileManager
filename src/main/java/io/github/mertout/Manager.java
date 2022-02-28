@@ -9,24 +9,19 @@ import java.util.List;
 
 public class Manager {
 
-    List<String> files = new ArrayList<>();
-
     File file;
     YamlConfiguration filecfg;
 
-    public Manager(String... strlist) {
-        for (String str : strlist) {
-            file = new File(FileManager.getInstance().getDataFolder(), files + ".yml");
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void writeFile(String str, Object to, String... files) {
+        for (String x : files) {
+            file = new File(Bridge.getInstance().getDataFolder(), x + ".yml");
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-    }
-    public void writeFile(String str, Object to, String... folders) {
-        for (String x : folders) {
-            file = new File(FileManager.getInstance().getDataFolder(), x + ".yml");
             filecfg = YamlConfiguration.loadConfiguration(file);
             filecfg.set(str, to);
             try {
@@ -36,9 +31,21 @@ public class Manager {
             }
         }
     }
-    public Object getObjectFile(String str, String folder) {
-        file = new File(FileManager.getInstance().getDataFolder(), folder + ".yml");
+    public Object getObjectFile(String str, String files) {
+        file = new File(Bridge.getInstance().getDataFolder(), files + ".yml");
+        if (!file.exists()) return null;
         filecfg = YamlConfiguration.loadConfiguration(file);
         return filecfg.get(str);
+    }
+    public File nameToFile(String files) {
+        file = new File(Bridge.getInstance().getDataFolder(), files + ".yml");
+        if (!file.exists()) return null;
+        return file;
+    }
+    public YamlConfiguration nameToFileCFG(String files) {
+        file = new File(Bridge.getInstance().getDataFolder(), files + ".yml");
+        if (!file.exists()) return null;
+        filecfg = YamlConfiguration.loadConfiguration(file);
+        return filecfg;
     }
 }
